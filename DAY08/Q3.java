@@ -1,4 +1,4 @@
-package DAY08;
+package WEEK02.DAY08;
 
 /*
 문자 A(65)에 랜덤한 값 0~25값을 추출 (주고 안받고로)하여

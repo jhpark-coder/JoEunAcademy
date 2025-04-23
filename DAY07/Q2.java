@@ -1,4 +1,4 @@
-package DAY07;
+package WEEK02.DAY07;
 /*
 //입력에 대응해서 만들어질 수 있게 만들기
 1   2   3   4   5

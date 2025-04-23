@@ -1,4 +1,4 @@
-package DAY07;
+package WEEK02.DAY07;
 
 import java.util.Scanner;
 
@@ -28,10 +28,12 @@ public class Q2941 {
                 //j = arr[j][k]
                 for(int k = 0 ; k < arr[j].length ; k++)
                 {
-                    if(arr[j][k] != str.length()) // 해당 배열과 다른 글자를 보면 그 배열말고 다음 배열에서 검색해야함
+                    if(arr[j][k] != str.charAt(i)) // 해당 배열과 다른 글자를 보면 그 배열말고 다음 배열에서 검색해야함
                     {
-                        rightCheck = false;
+                        rightCheck = false; // 이 라인에선 맞는게 없다는 뜻
                         break;
+                    }else{
+                        rightCheck = true;
                     }
                 }
                 if(!rightCheck){
@@ -40,6 +42,7 @@ public class Q2941 {
                     i = i + arr[j].length-1;
                     break;
                 }else{
+                    count++;
                     break;
                 }
 

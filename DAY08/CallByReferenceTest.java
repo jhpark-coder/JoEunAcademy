@@ -1,4 +1,4 @@
-package DAY08;
+package WEEK02.DAY08;
 
 public class CallByReferenceTest {
     static void abc(int[] a){
