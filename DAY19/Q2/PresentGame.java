@@ -10,6 +10,7 @@ public class PresentGame {
     private Present[] presents;
     private final int PEOPLE_NUMBER;
     private final int PRESENT_NUMBER;
+    private int givePresentCount;
 
 
     PresentGame(int peopleNum, int presentNum,Random r){
@@ -17,18 +18,29 @@ public class PresentGame {
         people = new Person[PEOPLE_NUMBER];
         PRESENT_NUMBER = presentNum;
         presents = new Present[PRESENT_NUMBER];
+        givePresentCount = 0;
         this.r = r;
     }
 
 
-    synchronized public int givePresent(){
-        while(true) {
+    synchronized public Present sendPresent(Person p){
+        while(givePresentCount < PRESENT_NUMBER) {
             int rNum = r.nextInt(PRESENT_NUMBER);
+            if(presents[rNum] == null){
+                continue;
+            }
             if (presents[rNum] != null) {
-                System.out.println("이번에 가져간 선물은 " + rNum + "번째 상자");
-                return rNum;
+                System.out.print("이번에 가져간 선물은 " + rNum + "번 위치 상자 ");
+                Present tempPresent = presents[rNum];
+                givePresentCount++;
+                System.out.print(givePresentCount+"번째 나눔 ");
+                presents[rNum] = null;
+                p.getPresents().add(tempPresent);
+                System.out.println(p.getName()+"이 가져감 ");
+                return tempPresent;
             }
         }
+        return null;
     }
 
     public void findWinner(){
@@ -56,5 +68,9 @@ public class PresentGame {
 
     public Person[] getPeople() {
         return people;
+    }
+
+    public int getGivePresentCount() {
+        return givePresentCount;
     }
 }

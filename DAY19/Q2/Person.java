@@ -18,16 +18,12 @@ public class Person extends Thread{
 
     @Override
     public void run() {
-        while(true){
-            System.out.print(getName()+"이 가져감 ");
-            int index = pg.givePresent();
-            Present p = pg.getPresents()[index];
-            presents.add(p);
-            if(p.isWinning){
+        while(pg.getGivePresentCount() < pg.getPRESENT_NUMBER()){
+            Present p = pg.sendPresent(this);
+            if(p!= null && p.isWinning){
+                System.out.print(getName()+"이 진짜 선물 가져감");
                 break;
             }
-            pg.getPresents()[index] = null;
-
         }
 
     }
