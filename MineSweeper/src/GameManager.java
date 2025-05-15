@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.Random;
 
 public class GameManager {
 
@@ -26,6 +27,7 @@ public class GameManager {
     private ButtonsPanel buttonsPanel;
     private StatusPanel statusPanel;
     private GameTimer gameTimer;
+    private int nowMineNumber;
 
     private ActionListener actionListener;
     private MouseListener mouseListener;
@@ -53,6 +55,9 @@ public class GameManager {
         jFrame.setVisible(true);
         jFrame.setTitle("지뢰 찾기");
 
+        if(gameLevel != CUSTOM_LEVEL) {
+            initMines(baseMineNumber[gameLevel]);
+        }
         gameTimer.resetAndStart();
     }
 
@@ -85,11 +90,15 @@ public class GameManager {
     }
 
     private void setCells(){
-        cells = new Cell[ROW_COLUMN[gameLevel][ROW_INDEX]][ROW_COLUMN[gameLevel][COLUMN_INDEX]];
-        for(int i = 0; i < ROW_COLUMN[gameLevel][ROW_INDEX]; i++){
-            for(int j = 0 ; j < ROW_COLUMN[gameLevel][COLUMN_INDEX]; j++){
-                cells[i][j] = new Cell();
+        if(gameLevel != CUSTOM_LEVEL) {
+            cells = new Cell[ROW_COLUMN[gameLevel][ROW_INDEX]][ROW_COLUMN[gameLevel][COLUMN_INDEX]];
+            for (int i = 0; i < ROW_COLUMN[gameLevel][ROW_INDEX]; i++) {
+                for (int j = 0; j < ROW_COLUMN[gameLevel][COLUMN_INDEX]; j++) {
+                    cells[i][j] = new Cell();
+                }
             }
+        }else{
+
         }
     }
 
@@ -110,4 +119,29 @@ public class GameManager {
         JMenu exitMenu = new JMenu("종료");
         menuBar.add(exitMenu);
     }
+
+    private void initMines(int mines){
+        nowMineNumber = 0;
+        Random r = new Random();
+            while(nowMineNumber < mines){
+                int r1 = r.nextInt(ROW_COLUMN[gameLevel][ROW_INDEX]);
+                int r2 = r.nextInt(ROW_COLUMN[gameLevel][COLUMN_INDEX]);
+                if(!cells[r1][r2].isMine()){
+                    cells[r1][r2].setMine(true);
+                    nowMineNumber++;
+                }
+            }
+
+        for(Cell[] c1 : cells){
+            for(Cell c : c1){
+                if(c.isMine()){
+                    System.out.print("💣");
+                }else{
+                    System.out.print("⬜");
+                }
+            }
+            System.out.println();
+        }
+    }
+
 }

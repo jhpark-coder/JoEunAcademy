@@ -101,8 +101,6 @@ public class StatusPanel extends JPanel {
              }
              @Override
              public void mouseReleased(MouseEvent e) {
-                 // 버튼 위에서 마우스를 떼었거나, 버튼 밖에서 떼었더라도
-                 // 이전에 버튼 위에서 눌렀었다면 원래 아이콘으로 복원
                  if (mousePressedOnButton) {
                      if (smileIcon != null) b.setIcon(smileIcon);
                      mousePressedOnButton = false;
